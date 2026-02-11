@@ -17,6 +17,7 @@ Required:
             - replication_frequency (required)
         - data_protection_snapshot_policy (optional, block):
             - snapshot_policy_id (required)
+        - encryption_key_source (optional)
         - export_policy_rule (required, block):
             - allowed_clients (required)
             - nfsv3_enabled (required)
@@ -25,7 +26,9 @@ Required:
             - rule_index (required)
             - unix_read_only (optional)
             - unix_read_write (optional)
+        - key_vault_private_endpoint_id (optional)
         - name (required)
+        - network_features (optional)
         - protocols (required)
         - proximity_placement_group_id (optional)
         - security_style (required)
@@ -37,6 +40,7 @@ Required:
         - throughput_in_mibps (required)
         - volume_path (required)
         - volume_spec_name (required)
+        - zone (optional)
 EOT
 
   type = map(object({
@@ -49,7 +53,7 @@ EOT
     volume = list(object({
       capacity_pool_id = string
       data_protection_replication = optional(object({
-        endpoint_type             = optional(string, "dst")
+        endpoint_type             = optional(string) # Default: "dst"
         remote_volume_location    = string
         remote_volume_resource_id = string
         replication_frequency     = string
@@ -57,27 +61,31 @@ EOT
       data_protection_snapshot_policy = optional(object({
         snapshot_policy_id = string
       }))
+      encryption_key_source = optional(string)
       export_policy_rule = list(object({
         allowed_clients     = string
         nfsv3_enabled       = bool
         nfsv41_enabled      = bool
-        root_access_enabled = optional(bool, true)
+        root_access_enabled = optional(bool) # Default: true
         rule_index          = number
-        unix_read_only      = optional(bool, false)
-        unix_read_write     = optional(bool, true)
+        unix_read_only      = optional(bool) # Default: false
+        unix_read_write     = optional(bool) # Default: true
       }))
-      name                         = string
-      protocols                    = list(string)
-      proximity_placement_group_id = optional(string)
-      security_style               = string
-      service_level                = string
-      snapshot_directory_visible   = bool
-      storage_quota_in_gb          = number
-      subnet_id                    = string
-      tags                         = optional(map(string))
-      throughput_in_mibps          = number
-      volume_path                  = string
-      volume_spec_name             = string
+      key_vault_private_endpoint_id = optional(string)
+      name                          = string
+      network_features              = optional(string)
+      protocols                     = list(string)
+      proximity_placement_group_id  = optional(string)
+      security_style                = string
+      service_level                 = string
+      snapshot_directory_visible    = bool
+      storage_quota_in_gb           = number
+      subnet_id                     = string
+      tags                          = optional(map(string))
+      throughput_in_mibps           = number
+      volume_path                   = string
+      volume_spec_name              = string
+      zone                          = optional(string)
     }))
   }))
   validation {

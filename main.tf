@@ -27,6 +27,7 @@ resource "azurerm_netapp_volume_group_sap_hana" "netapp_volume_group_sap_hanas" 
           snapshot_policy_id = data_protection_snapshot_policy.value.snapshot_policy_id
         }
       }
+      encryption_key_source = volume.value.encryption_key_source
       dynamic "export_policy_rule" {
         for_each = volume.value.export_policy_rule
         content {
@@ -39,18 +40,21 @@ resource "azurerm_netapp_volume_group_sap_hana" "netapp_volume_group_sap_hanas" 
           unix_read_write     = export_policy_rule.value.unix_read_write
         }
       }
-      name                         = volume.value.name
-      protocols                    = volume.value.protocols
-      proximity_placement_group_id = volume.value.proximity_placement_group_id
-      security_style               = volume.value.security_style
-      service_level                = volume.value.service_level
-      snapshot_directory_visible   = volume.value.snapshot_directory_visible
-      storage_quota_in_gb          = volume.value.storage_quota_in_gb
-      subnet_id                    = volume.value.subnet_id
-      tags                         = volume.value.tags
-      throughput_in_mibps          = volume.value.throughput_in_mibps
-      volume_path                  = volume.value.volume_path
-      volume_spec_name             = volume.value.volume_spec_name
+      key_vault_private_endpoint_id = volume.value.key_vault_private_endpoint_id
+      name                          = volume.value.name
+      network_features              = volume.value.network_features
+      protocols                     = volume.value.protocols
+      proximity_placement_group_id  = volume.value.proximity_placement_group_id
+      security_style                = volume.value.security_style
+      service_level                 = volume.value.service_level
+      snapshot_directory_visible    = volume.value.snapshot_directory_visible
+      storage_quota_in_gb           = volume.value.storage_quota_in_gb
+      subnet_id                     = volume.value.subnet_id
+      tags                          = volume.value.tags
+      throughput_in_mibps           = volume.value.throughput_in_mibps
+      volume_path                   = volume.value.volume_path
+      volume_spec_name              = volume.value.volume_spec_name
+      zone                          = volume.value.zone
     }
   }
 }
