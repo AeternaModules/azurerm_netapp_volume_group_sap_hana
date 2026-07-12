@@ -1,3 +1,7 @@
+output "netapp_volume_group_sap_hanas_id" {
+  description = "Map of id values across all netapp_volume_group_sap_hanas, keyed the same as var.netapp_volume_group_sap_hanas"
+  value       = { for k, v in azurerm_netapp_volume_group_sap_hana.netapp_volume_group_sap_hanas : k => v.id }
+}
 output "netapp_volume_group_sap_hanas_account_name" {
   description = "Map of account_name values across all netapp_volume_group_sap_hanas, keyed the same as var.netapp_volume_group_sap_hanas"
   value       = { for k, v in azurerm_netapp_volume_group_sap_hana.netapp_volume_group_sap_hanas : k => v.account_name }
