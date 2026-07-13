@@ -53,7 +53,7 @@ EOT
     volume = list(object({
       capacity_pool_id = string
       data_protection_replication = optional(object({
-        endpoint_type             = optional(string) # Default: "dst"
+        endpoint_type             = optional(string)
         remote_volume_location    = string
         remote_volume_resource_id = string
         replication_frequency     = string
@@ -66,10 +66,10 @@ EOT
         allowed_clients     = string
         nfsv3_enabled       = bool
         nfsv41_enabled      = bool
-        root_access_enabled = optional(bool) # Default: true
+        root_access_enabled = optional(bool)
         rule_index          = number
-        unix_read_only      = optional(bool) # Default: false
-        unix_read_write     = optional(bool) # Default: true
+        unix_read_only      = optional(bool)
+        unix_read_write     = optional(bool)
       }))
       key_vault_private_endpoint_id = optional(string)
       name                          = string
